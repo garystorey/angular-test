@@ -1,4 +1,4 @@
-<div class="flex items-center gap-4 p-4 bg-white rounded shadow">
+<div class="flex items-start gap-4 p-4 bg-white rounded shadow">
   <img
     class="w-12 h-12 rounded-full object-cover border border-gray-200"
     [src]="'https://i.pravatar.cc/150?u=' + user().id"
@@ -6,6 +6,12 @@
   />
   <div>
     <h4 class="font-bold text-lg mb-1">{{ post().title }}</h4>
-    <p class="text-gray-600 mb-2">{{ post().body }}</p>
+    <p class="text-gray-600 mb-2">
+      {{
+        post().body.length > 150
+          ? (post().body | slice : 0 : 150) + "…"
+          : post().body
+      }}
+    </p>
   </div>
 </div>

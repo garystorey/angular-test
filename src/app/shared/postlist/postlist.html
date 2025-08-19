@@ -1,11 +1,16 @@
 @if (loading()) {
 <app-loading />
-} @else if (!error()) {
+} @else if (error()) {
 <app-error [message]="error() ?? undefined" />
 } @else {
-<div class="flex flex-row flex-wrap gap-6 justify-center">
-  <h2>Posts for {{ user().name }}</h2>
+<div class="w-full flex flex-col items-start justify-start p-4">
+  <h2 class="text-xl font-bold mb-6 text-center">
+    Posts for {{ user().name }}
+  </h2>
+  <div class="flex flex-row flex-wrap gap-10 justify-start align-start">
+    @for (post of posts(); track post.id) {
+    <app-post class="post-card" [post]="post" [user]="user()" />
+    }
+  </div>
 </div>
-@for (post of posts(); track post.id) {
-<app-post [post]="post" [user]="user()" />
-} }
+}
