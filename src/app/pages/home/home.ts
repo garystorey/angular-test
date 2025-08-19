@@ -6,7 +6,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { Jsonplaceholder } from '../../services/jsonplaceholder';
-import { User } from '../../types/user';
+import { User } from '../../types';
 import { Card } from '../../shared/card/card';
 import { PostListComponent } from '../../shared/postlist/postlist';
 

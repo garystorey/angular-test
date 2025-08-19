@@ -1,13 +1,14 @@
 import { Component, input, signal, OnInit, inject } from '@angular/core';
-import { Post } from '../../types/post';
+import { Post, User } from '../../types';
 import { Jsonplaceholder } from '../../services/jsonplaceholder';
 import { PostComponent } from '../post/post';
-import { User } from '../../types';
+import { LoadingComponent } from '../loading/loading';
+import { ErrorComponent } from '../error/error';
 
 @Component({
   selector: 'app-post-list',
   standalone: true,
-  imports: [PostComponent],
+  imports: [PostComponent, LoadingComponent, ErrorComponent],
   templateUrl: './postlist.html',
   styleUrl: './postlist.css',
 })
@@ -26,10 +27,11 @@ export class PostListComponent implements OnInit {
     this.loading.set(true);
     this.error.set(null);
     try {
-      const posts = await this.postService.getPostsByUserId(
-        this.user().id ?? -1
-      );
-      this.posts.set(posts);
+      const user = this.user();
+      if (user) {
+        const posts = await this.postService.getPostsByUserId(user.id);
+        this.posts.set(posts);
+      }
     } catch (err) {
       this.error.set('Failed to load posts');
     }

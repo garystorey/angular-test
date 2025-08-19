@@ -1,6 +1,5 @@
 import { Component, input, output } from '@angular/core';
-import { User } from '../../types/user';
-import { Post } from '../../types/post';
+import { User, Post } from '../../types';
 
 @Component({
   selector: 'app-card',
