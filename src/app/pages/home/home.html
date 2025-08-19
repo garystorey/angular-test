@@ -1,8 +1,24 @@
+@if (!selectedUser()) {
 <div class="container mx-auto px-4 py-6">
   <h2 class="text-3xl font-bold mb-6 text-center">Users</h2>
   <div class="flex flex-row flex-wrap gap-6 justify-start">
     @for(user of users(); track user.id) {
-    <app-card [user]="user" class="flex-shrink-0" />
+    <app-card
+      [user]="user"
+      class="flex-shrink-0"
+      (showPosts)="onShowPosts(user)"
+    />
     }
   </div>
 </div>
+} @else {
+<div class="container mx-auto px-4 py-6">
+  <button
+    class="mb-4 px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+    (click)="onBackToUsers()"
+  >
+    Back to Users
+  </button>
+  <app-post-list [user]="selectedUser()!" />
+</div>
+}

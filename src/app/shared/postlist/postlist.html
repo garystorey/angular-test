@@ -1,0 +1,7 @@
+<div class="flex flex-row flex-wrap gap-6 justify-center">
+  <h2>Posts for {{ user().name }}</h2>
+</div>
+
+@for (post of posts(); track post.id) {
+<app-post [post]="post" [user]="user()" />
+}

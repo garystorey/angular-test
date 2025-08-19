@@ -6,17 +6,20 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { Jsonplaceholder } from '../../services/jsonplaceholder';
+import { User } from '../../types/user';
 import { Card } from '../../shared/card/card';
+import { PostListComponent } from '../../shared/postlist/postlist';
 
 @Component({
   selector: 'home-page',
   templateUrl: './home.html',
   styleUrl: './home.css',
-  imports: [Card],
+  imports: [Card, PostListComponent],
   encapsulation: ViewEncapsulation.None,
 })
 export class HomePage implements OnInit {
-  users = signal<any[]>([]);
+  users = signal<User[]>([]);
+  selectedUser = signal<User | null>(null);
 
   private userService = inject(Jsonplaceholder);
   private loading = signal<boolean>(true);
@@ -31,6 +34,14 @@ export class HomePage implements OnInit {
     target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(
       userName
     )}`;
+  }
+
+  onShowPosts(user: User) {
+    this.selectedUser.set(user);
+  }
+
+  onBackToUsers() {
+    this.selectedUser.set(null);
   }
 
   private async loadUsers() {
